@@ -45,6 +45,61 @@ export class UserService {
         return this.usersRepository.save(user);
     }
 
+    getAllUsers(userId: string): Promise<User[]> {
+        return this.usersRepository.find().then(users => users.filter(u => u.id != userId))        
+    }
+
+    async getUserById(id: string): Promise<User> {
+
+        return this.usersRepository.findOne({
+            where: {
+                id,
+            },
+            relations: ['friends']
+
+        });
+    }
+
+    async updateUser(id: string, email: string, password: string): Promise<User> {
+        const exist = await this.userExistById(id);
+        if (!exist) {
+            throw new NotFoundException("Utilisateur introuvable!");
+        }
+
+        const user: User = this.usersRepository.create({
+            email, password
+        });
+
+        await this.usersRepository.update(id, user);
+        return this.usersRepository.findOne({
+            where: { id }
+        });
+    }
+
+    async userExistById(id: string): Promise<User> {
+        return this.usersRepository.findOne({
+            where: {
+                id
+            }
+        });
+    }
+
+    async updateProfil(id: string, lastName: string, firstName: string, dateOfBirth: Date): Promise<User> {
+        const exist = await this.userExistById(id);
+        if (!exist) {
+            throw new NotFoundException("Utilisateur introuvable!");
+        }
+
+        const user: User = this.usersRepository.create({
+            lastName, firstName, dateOfBirth
+        });
+
+        await this.usersRepository.update(id, user);
+        return this.usersRepository.findOne({
+            where: { id }
+        });
+    }
+
    /* async deleteById(id: number): Promise<void> {
         // vérifier que l'utilisateur n'existe pas
         const exist = await this.userExistById(id);

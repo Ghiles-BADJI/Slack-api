@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Conversation } from "src/conversation/conversation.entity";
 import { User } from "src/user/user.entity";
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Message {
