@@ -56,13 +56,13 @@ export class UserController {
         return this.userService.updateProfil(body.id, body.lastName, body.firstName, body.dateOfBirth);
     }
 
-    /**@Post(':userId/friend/:friendId')
+    @Post(':userId/friend/:friendId')
     @ApiOkResponse({ type: User })
-    addFriendById(@Param('userId', ParseIntPipe) userId: number, @Param('friendId', ParseIntPipe) friendId: number): Promise<User> {
+    addFriendById(@Param('userId') userId: string, @Param('friendId') friendId: string): Promise<User> {
         return this.userService.addFriendById(userId, friendId);
     }
 
-    @Delete(':id')
+    /**@Delete(':id')
     @ApiOkResponse()
     @ApiNotFoundResponse()
     delete(@Param('id', new ParseIntPipe()) id: number): Promise<void> {

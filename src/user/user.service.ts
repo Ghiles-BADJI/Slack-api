@@ -190,7 +190,7 @@ export class UserService {
         return !!user;
     }
 
-   /* async addFriendById(userId: number, friendId: number): Promise<User> {
+    async addFriendById(userId: string, friendId: string): Promise<User> {
         const user = await this.getUserById(userId);
         const friend = await this.getUserById(friendId);
 
@@ -200,5 +200,5 @@ export class UserService {
         }
 
         return user;
-    }*/
+    }
 }
